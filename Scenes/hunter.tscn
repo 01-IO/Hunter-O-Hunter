@@ -23,18 +23,24 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7igf5"]
-radius = 9.05539
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_deo7t"]
+height = 24.0
 
-[sub_resource type="Gradient" id="Gradient_4dcvi"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+[sub_resource type="Gradient" id="Gradient_deo7t"]
+offsets = PackedFloat32Array(0, 0.863636, 0.876623)
+colors = PackedColorArray(0, 0, 0, 1, 0.954545, 0.954545, 0.954545, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7igf5"]
-gradient = SubResource("Gradient_4dcvi")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4dcvi"]
+gradient = SubResource("Gradient_deo7t")
+width = 128
+height = 128
 fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="Hunter" type="CharacterBody2D"]
 script = ExtResource("1_deo7t")
+metadata/_edit_horizontal_guides_ = [-222.0]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -42,13 +48,14 @@ sprite_frames = SubResource("SpriteFrames_4dcvi")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4, 2)
-shape = SubResource("CircleShape2D_7igf5")
+position = Vector2(-4, 4)
+shape = SubResource("CapsuleShape2D_deo7t")
 
 [node name="NormalEchoLight" type="PointLight2D" parent="."]
+position = Vector2(-4, 4)
 energy = 0.0
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_7igf5")
+texture = SubResource("GradientTexture2D_4dcvi")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.6, 2.6)

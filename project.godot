@@ -11,13 +11,9 @@ config_version=5
 [application]
 
 config/name="Hunter O' Hunter"
-run/main_scene="uid://cssmc762qdklp"
+run/main_scene="uid://cg21w3loqfeqh"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
-
-[display]
-
-window/stretch/scale=5.5
 
 [input]
 
