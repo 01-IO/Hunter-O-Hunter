@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://cssmc762qdklp"]
+
+[ext_resource type="Script" uid="uid://c7b704fydursl" path="res://Scripts/player.gd" id="1_deo7t"]
+[ext_resource type="Texture2D" uid="uid://cm2csjbgmcpd5" path="res://Assets/Hunter-SpriteSheet/MC-Idle-SpriteSheet.png" id="1_kns4j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_deo7t"]
+atlas = ExtResource("1_kns4j")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4dcvi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_deo7t")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7igf5"]
+radius = 9.05539
+
+[sub_resource type="Gradient" id="Gradient_4dcvi"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7igf5"]
+gradient = SubResource("Gradient_4dcvi")
+fill = 1
+
+[node name="Hunter" type="CharacterBody2D"]
+script = ExtResource("1_deo7t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_4dcvi")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 2)
+shape = SubResource("CircleShape2D_7igf5")
+
+[node name="NormalEchoLight" type="PointLight2D" parent="."]
+energy = 0.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_7igf5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.6, 2.6)
+position_smoothing_enabled = true

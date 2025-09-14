@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://du04fwnry83so"]
+
+[ext_resource type="Script" uid="uid://de7bq8qjlsgjh" path="res://Scripts/ui.gd" id="1_jxero"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wviqb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jxero"]
+bg_color = Color(0.401948, 0.606088, 0.894295, 1)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_jxero")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_wviqb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jxero")
+max_value = 2.0
+
+[node name="SuccessZone" type="ColorRect" parent="MarginContainer/ProgressBar"]
+layout_mode = 0
+offset_left = 260.0
+offset_right = 280.0
+offset_bottom = 30.0
+color = Color(0.376471, 1, 0.0509804, 1)
