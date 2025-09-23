@@ -1,11 +1,10 @@
-# main.gd
 extends Node2D
-
 @onready var player = $Hunter
 @onready var ui = $UI
 @onready var canvas_modulate = $CanvasModulate
 @onready var full_map_light = $DirectionalLight2D
 @onready var effect_timer = $EffectTimer
+@onready var background: Sprite2D = $Background
 
 # --- Config for Double or Nothing ---
 const CHARGE_DURATION = 2.0
@@ -16,8 +15,11 @@ const EFFECT_DURATION = 3.0 # How long the success/fail effect lasts
 const NORMAL_COLOR = Color("333333")
 const STUN_COLOR = Color("000000")
 
+var isSuccessful: bool = false
+var bg_rotation: float = 0.00
 
 func _ready():
+	full_map_light.enabled = false
 	# Connect signals from the player to the UI
 	player.charge_started.connect(ui.start_charging)
 	player.charge_updated.connect(ui.update_progress)
@@ -28,17 +30,19 @@ func _ready():
 	# Connect the timer's timeout signal
 	effect_timer.timeout.connect(_on_effect_timer_timeout)
 
+func _process(delta: float) -> void:
+	background.rotate(0.1 * delta)
 
 func _on_player_charge_released(final_time):
 	# Stop the UI progress bar
 	ui.stop_charging()
-	
 	# Check if the release time is within the success window
 	if final_time >= SUCCESS_START_TIME and final_time <= SUCCESS_END_TIME:
 		# SUCCESS!
 		print("Double or Nothing: SUCCESS!")
 		full_map_light.enabled = true
 		effect_timer.start(EFFECT_DURATION)
+
 	else:
 		# FAILURE!
 		print("Double or Nothing: FAILURE!")
@@ -53,23 +57,6 @@ func _on_effect_timer_timeout():
 	full_map_light.enabled = false
 	canvas_modulate.color = NORMAL_COLOR
 
-
-### **Part 5: Final Check**
-
-#You've built all the pieces! Now just make sure:
-#
-#1.  The scripts are saved and attached to the correct nodes.
-#2.  The scenes (`player.tscn`, `ui.tscn`) are saved.
-#3.  In `Project -> Project Settings -> General -> Application -> Run`, set the **Main Scene** to `main.tscn`.
-#4.  Hit **F5** to run your project!
-#
-#You should now be able to:
-#
-#* Move with WASD.
-#* Left-click to emit a small, revealing echo.
-#* Hold Right-click to charge the "Double or Nothing" echo, see the UI bar, and release.
-#* Succeeding reveals the map; failing makes the screen black and stuns you.
-#
 #### **Part 6: Next Steps (For Day 2!)**
 #
 #With the core mechanic done, you can now build the rest of the game.

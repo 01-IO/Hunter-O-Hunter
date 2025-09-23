@@ -4,6 +4,7 @@ extends CharacterBody2D
 
 #Echo variables
 @onready var normal_echo_light: PointLight2D = $NormalEchoLight
+
 var is_charging: bool = false
 var charge_time: float = 0.0
 
@@ -67,7 +68,7 @@ func emit_normal_echo():
 	tween.parallel().tween_property(normal_echo_light, "texture_scale", 1.0, 0.8)
 
 
-func stun(duration):
+func stun(duration) -> void:
 	is_stunned = true
 	print("Player stunned!")
 	await get_tree().create_timer(duration).timeout

@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6yqpdawdoyi5"]
+
+[sub_resource type="Gradient" id="Gradient_q0bwd"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3hd0e"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pdevp"]
+color_ramp = SubResource("Gradient_q0bwd")
+noise = SubResource("FastNoiseLite_3hd0e")
+
+[node name="DON" type="PointLight2D"]
+texture = SubResource("NoiseTexture2D_pdevp")
