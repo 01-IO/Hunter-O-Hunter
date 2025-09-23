@@ -16,7 +16,6 @@ const NORMAL_COLOR = Color("333333")
 const STUN_COLOR = Color("000000")
 
 var isSuccessful: bool = false
-var bg_rotation: float = 0.00
 
 func _ready():
 	full_map_light.enabled = false
