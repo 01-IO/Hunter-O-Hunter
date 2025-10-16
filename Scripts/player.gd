@@ -7,7 +7,7 @@ extends CharacterBody2D
 
 var is_charging: bool = false
 var charge_time: float = 0.0
-
+var normal_echo_released: bool = false
 #Stun state
 var is_stunned: bool = false
 
@@ -34,7 +34,8 @@ func _unhandled_input(event):
 		return
 
 	# --- Normal Echo ---
-	if event.is_action_pressed("normal_echo") and not is_charging:
+	if event.is_action_pressed("normal_echo") and (not is_charging) and (not normal_echo_released):
+		normal_echo_released = true
 		emit_normal_echo()
 
 	# --- Double or Nothing Echo ---
@@ -66,7 +67,7 @@ func emit_normal_echo():
 	# Fade out
 	tween.tween_property(normal_echo_light, "energy", 0.0, 0.8)
 	tween.parallel().tween_property(normal_echo_light, "texture_scale", 1.0, 0.8)
-
+	normal_echo_released = false
 
 func stun(duration) -> void:
 	is_stunned = true

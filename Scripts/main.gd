@@ -15,8 +15,6 @@ const EFFECT_DURATION = 3.0 # How long the success/fail effect lasts
 const NORMAL_COLOR = Color("333333")
 const STUN_COLOR = Color("000000")
 
-var isSuccessful: bool = false
-
 func _ready():
 	full_map_light.enabled = false
 	# Connect signals from the player to the UI
