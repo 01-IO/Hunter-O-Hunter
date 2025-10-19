@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=4 uid="uid://cg21w3loqfeqh"]
+[gd_scene load_steps=16 format=4 uid="uid://cg21w3loqfeqh"]
 
 [ext_resource type="PackedScene" uid="uid://cssmc762qdklp" path="res://Scenes/hunter.tscn" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://botmewcft4del" path="res://Scripts/main.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://du04fwnry83so" path="res://Scenes/ui.tscn" id="2_8gbba"]
 [ext_resource type="Texture2D" uid="uid://byx4722oe71vr" path="res://Assets/2D Pixel Dungeon Asset Pack/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://cn2a5vpin5fkr" path="res://Scenes/enemy.tscn" id="5_kry3j"]
 
 [sub_resource type="Gradient" id="Gradient_jjvhh"]
 colors = PackedColorArray(0, 0, 0, 1, 0.393624, 0.167791, 0.100935, 1)
@@ -449,5 +450,8 @@ energy = 2.0
 
 [node name="EffectTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Enemy" parent="." instance=ExtResource("5_kry3j")]
+position = Vector2(-154, -68)
 
 [connection signal="timeout" from="EffectTimer" to="." method="_on_effect_timer_timeout"]

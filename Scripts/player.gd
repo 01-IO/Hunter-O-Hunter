@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
-@export var movement_speed: float = 300.0
+@export var movement_speed: float = 150.0
 
 #Echo variables
 @onready var normal_echo_light: PointLight2D = $NormalEchoLight
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var is_charging: bool = false
 var charge_time: float = 0.0
@@ -16,6 +17,13 @@ signal charge_started(charge_duration)
 signal charge_updated(current_time)
 signal charge_released(final_time)
 
+enum HunterState {
+	IDLE,
+	RUNNING
+}
+
+var setHunterState = HunterState.IDLE
+
 func _physics_process(delta: float) -> void:
 	# Don't move if stunned or charging
 	if is_stunned or is_charging:
@@ -26,6 +34,21 @@ func _physics_process(delta: float) -> void:
 	# Handle player movement
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction * movement_speed
+	# Handle sprite flip
+	if velocity.x != 0:
+		animated_sprite.flip_h = velocity.x < 0
+	
+	if velocity.x or velocity.y != 0:
+		setHunterState = HunterState.RUNNING
+	else:
+		setHunterState = HunterState.IDLE
+	match setHunterState:
+		HunterState.IDLE:
+			animated_sprite.play("idle")
+		HunterState.RUNNING:
+			animated_sprite.play("run")
+	
+
 	move_and_slide()
 
 func _unhandled_input(event):
