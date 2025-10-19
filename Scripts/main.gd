@@ -25,7 +25,7 @@ func _ready():
 	player.charge_released.connect(_on_player_charge_released)
 	
 	# Connect the timer's timeout signal
-	effect_timer.timeout.connect(_on_effect_timer_timeout)
+	#effect_timer.timeout.connect(_on_effect_timer_timeout)
 
 func _process(delta: float) -> void:
 	background.rotate(0.1 * delta)
