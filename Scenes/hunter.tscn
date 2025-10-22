@@ -119,7 +119,6 @@ fill_to = Vector2(0.5, 0)
 [node name="Hunter" type="CharacterBody2D"]
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_deo7t")
-movement_speed = 200.0
 metadata/_edit_horizontal_guides_ = [-222.0]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -141,3 +140,14 @@ texture = SubResource("GradientTexture2D_4dcvi")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
+
+[node name="NormalEchoCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="DonCooldown" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="timeout" from="NormalEchoCooldown" to="." method="_on_normal_echo_cooldown_timeout"]
+[connection signal="timeout" from="DonCooldown" to="." method="_on_don_cooldown_timeout"]

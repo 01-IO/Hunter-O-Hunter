@@ -1,14 +1,21 @@
 extends CharacterBody2D
 
 @export var movement_speed: float = 150.0
-
-#Echo variables
+# Health
+@export var max_health: float = 100.0
+var current_health: float
+# Abilities
 @onready var normal_echo_light: PointLight2D = $NormalEchoLight
+@onready var normal_echo_cooldown: Timer = $NormalEchoCooldown
+@onready var don_cooldown: Timer = $DonCooldown
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var is_charging: bool = false
 var charge_time: float = 0.0
-var normal_echo_released: bool = false
+
+var can_use_normal_echo: bool = true
+var can_use_don: bool = true
+
 #Stun state
 var is_stunned: bool = false
 
@@ -16,6 +23,8 @@ var is_stunned: bool = false
 signal charge_started(charge_duration)
 signal charge_updated(current_time)
 signal charge_released(final_time)
+signal normal_echo_started(cooldown_time)
+signal don_started(cooldown_time)
 
 enum HunterState {
 	IDLE,
@@ -57,12 +66,14 @@ func _unhandled_input(event):
 		return
 
 	# --- Normal Echo ---
-	if event.is_action_pressed("normal_echo") and (not is_charging) and (not normal_echo_released):
-		normal_echo_released = true
+	if event.is_action_pressed("normal_echo") and (not is_charging) and can_use_normal_echo:
 		emit_normal_echo()
+		can_use_normal_echo = false
+		normal_echo_cooldown.start()
+		normal_echo_started.emit(normal_echo_cooldown.wait_time)
 
 	# --- Double or Nothing Echo ---
-	if event.is_action_pressed("double_or_nothing"):
+	if event.is_action_pressed("double_or_nothing") and can_use_don:
 		is_charging = true
 		charge_time = 0.0
 		# We'll define the total charge duration here. Let's say 2 seconds.
@@ -71,6 +82,10 @@ func _unhandled_input(event):
 	if event.is_action_released("double_or_nothing"):
 		if is_charging:
 			is_charging = false
+			# put under cooldown
+			can_use_don = false
+			don_cooldown.start()
+			don_started.emit(don_cooldown.wait_time)
 			emit_signal("charge_released", charge_time)
 
 
@@ -90,7 +105,6 @@ func emit_normal_echo():
 	# Fade out
 	tween.tween_property(normal_echo_light, "energy", 0.0, 0.8)
 	tween.parallel().tween_property(normal_echo_light, "texture_scale", 1.0, 0.8)
-	normal_echo_released = false
 
 func stun(duration) -> void:
 	is_stunned = true
@@ -98,3 +112,11 @@ func stun(duration) -> void:
 	await get_tree().create_timer(duration).timeout
 	is_stunned = false
 	print("Player recovered from stun.")
+
+
+func _on_normal_echo_cooldown_timeout() -> void:
+	can_use_normal_echo = true
+
+
+func _on_don_cooldown_timeout() -> void:
+	can_use_don = true
