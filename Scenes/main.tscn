@@ -454,4 +454,6 @@ one_shot = true
 [node name="Enemy" parent="." instance=ExtResource("5_kry3j")]
 position = Vector2(-154, -68)
 
+[connection signal="don_started" from="Hunter" to="UI" method="_on_hunter_don_started"]
+[connection signal="normal_echo_started" from="Hunter" to="UI" method="_on_hunter_normal_echo_started"]
 [connection signal="timeout" from="EffectTimer" to="." method="_on_effect_timer_timeout"]

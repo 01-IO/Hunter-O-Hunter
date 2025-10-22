@@ -1,6 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://du04fwnry83so"]
+[gd_scene load_steps=13 format=3 uid="uid://du04fwnry83so"]
 
 [ext_resource type="Script" uid="uid://de7bq8qjlsgjh" path="res://Scripts/ui.gd" id="1_jxero"]
+[ext_resource type="Texture2D" uid="uid://cp24qp0ddwqw6" path="res://Assets/RedHealthBar.png" id="2_2246s"]
+[ext_resource type="Texture2D" uid="uid://bjc13v05yy5r0" path="res://Assets/BorderHealthBar.png" id="3_q7pk6"]
+[ext_resource type="Texture2D" uid="uid://57t3q424scqb" path="res://Assets/Sprite-0002.png" id="4_m78vo"]
+[ext_resource type="Texture2D" uid="uid://rqrd8tnewmv2" path="res://Assets/NormalEcho/Layer 1.png" id="5_nt8jn"]
+[ext_resource type="Texture2D" uid="uid://bq5axicupde86" path="res://Assets/NormalEcho/Layer 2.png" id="6_g0wmg"]
+[ext_resource type="Texture2D" uid="uid://cud4ky7i0a0py" path="res://Assets/NormalEcho/Layer 3.png" id="7_4vbiv"]
+[ext_resource type="Texture2D" uid="uid://kx2iyq0mivqs" path="res://Assets/DONecho/Layer 1.png" id="8_3r70p"]
+[ext_resource type="Texture2D" uid="uid://drcwa84yu4xv8" path="res://Assets/DONecho/Layer 2.png" id="9_8fs27"]
+[ext_resource type="Texture2D" uid="uid://b22t47qsemgbv" path="res://Assets/DONecho/Layer 3.png" id="10_whq80"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wviqb"]
 
@@ -37,3 +46,60 @@ offset_left = 260.0
 offset_right = 280.0
 offset_bottom = 30.0
 color = Color(0.376471, 1, 0.0509804, 1)
+
+[node name="Health" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -45.0
+offset_right = 220.0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Health"]
+layout_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="Health/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_2246s")
+texture_over = ExtResource("3_q7pk6")
+texture_progress = ExtResource("4_m78vo")
+
+[node name="EffectHUD" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EffectHUD"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="NormalEchoCooldown" type="TextureProgressBar" parent="EffectHUD/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+fill_mode = 4
+texture_under = ExtResource("5_nt8jn")
+texture_over = ExtResource("6_g0wmg")
+texture_progress = ExtResource("7_4vbiv")
+
+[node name="DonCooldown" type="TextureProgressBar" parent="EffectHUD/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+fill_mode = 4
+texture_under = ExtResource("8_3r70p")
+texture_over = ExtResource("9_8fs27")
+texture_progress = ExtResource("10_whq80")
