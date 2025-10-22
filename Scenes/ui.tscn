@@ -89,6 +89,7 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="NormalEchoCooldown" type="TextureProgressBar" parent="EffectHUD/HBoxContainer"]
+texture_filter = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 fill_mode = 4
@@ -97,6 +98,7 @@ texture_over = ExtResource("6_g0wmg")
 texture_progress = ExtResource("7_4vbiv")
 
 [node name="DonCooldown" type="TextureProgressBar" parent="EffectHUD/HBoxContainer"]
+texture_filter = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 fill_mode = 4
