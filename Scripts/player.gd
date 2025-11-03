@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@export var movement_speed: float = 150.0
+@export var movement_speed: float = 90.0
 # Health
 @export var max_health: float = 100.0
-var current_health: float
+@export var current_health: float = 100
 # Abilities
 @onready var normal_echo_light: PointLight2D = $NormalEchoLight
 @onready var normal_echo_cooldown: Timer = $NormalEchoCooldown
@@ -25,6 +25,8 @@ signal charge_updated(current_time)
 signal charge_released(final_time)
 signal normal_echo_started(cooldown_time)
 signal don_started(cooldown_time)
+#Signal to update health
+signal update_health(current_health: float, max_health: float)
 
 enum HunterState {
 	IDLE,
@@ -33,6 +35,8 @@ enum HunterState {
 
 var setHunterState = HunterState.IDLE
 
+func _ready() -> void:
+	print("curr health: ", current_health)
 func _physics_process(delta: float) -> void:
 	# Don't move if stunned or charging
 	if is_stunned or is_charging:
@@ -96,7 +100,7 @@ func _process(delta):
 		emit_signal("charge_updated", charge_time)
 
 
-func emit_normal_echo():
+func emit_normal_echo() -> void:
 	# Use a Tween to create a smooth flash effect for the normal echo
 	var tween = create_tween()
 	# Flash on
@@ -113,10 +117,16 @@ func stun(duration) -> void:
 	is_stunned = false
 	print("Player recovered from stun.")
 
+func take_damage(damage: float):
+	current_health -= damage
+	emit_signal("update_health", current_health, max_health)
+	print("damage took: %s \ncurrent health: %s" % [damage, current_health])
+	if current_health <= 0:
+		animated_sprite.play("pop")
+		queue_free()
 
 func _on_normal_echo_cooldown_timeout() -> void:
 	can_use_normal_echo = true
-
 
 func _on_don_cooldown_timeout() -> void:
 	can_use_don = true
