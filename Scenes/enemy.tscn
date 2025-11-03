@@ -225,9 +225,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_56vhr")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -369,21 +369,20 @@ radius = 6.0
 height = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jyny"]
-size = Vector2(29, 25)
+size = Vector2(28.5385, 25)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghaa6"]
 radius = 54.6371
 
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(1.3, 1.3)
+motion_mode = 1
 script = ExtResource("1_ghaa6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_dhkrs")
-animation = &"take_damage"
-frame = 4
-frame_progress = 0.0371231
+animation = &"idle"
 
 [node name="EnemyCollider" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 6)
@@ -392,7 +391,7 @@ shape = SubResource("CapsuleShape2D_5xdhn")
 [node name="EnemryAttackArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemryAttackArea"]
-position = Vector2(-2.5, 5.5)
+position = Vector2(-2.73077, 5.5)
 shape = SubResource("RectangleShape2D_4jyny")
 
 [node name="DetectionArea" type="Area2D" parent="."]
@@ -404,6 +403,9 @@ shape = SubResource("CircleShape2D_ghaa6")
 [node name="WanderTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="EnemryAttackArea" to="." method="_on_enemry_attack_area_body_entered"]
+[connection signal="body_exited" from="EnemryAttackArea" to="." method="_on_enemry_attack_area_body_exited"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]

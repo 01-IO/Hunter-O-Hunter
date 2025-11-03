@@ -54,3 +54,9 @@ func _on_hunter_don_started(cooldown_time: Variant) -> void:
 	don_duration = cooldown_time
 	don_timer = cooldown_time
 	don_cooldown.value = 0 # Start the visual timer from 0
+
+
+func _on_hunter_update_health(current_health: float, max_health: float) -> void:
+	health_bar.max_value = max_health
+	health_bar.value = current_health
+	print("health updated in UI!")

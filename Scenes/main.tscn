@@ -442,6 +442,7 @@ texture = SubResource("GradientTexture2D_jjvhh")
 [node name="UI" parent="." instance=ExtResource("2_8gbba")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
@@ -456,4 +457,5 @@ position = Vector2(-154, -68)
 
 [connection signal="don_started" from="Hunter" to="UI" method="_on_hunter_don_started"]
 [connection signal="normal_echo_started" from="Hunter" to="UI" method="_on_hunter_normal_echo_started"]
+[connection signal="update_health" from="Hunter" to="UI" method="_on_hunter_update_health"]
 [connection signal="timeout" from="EffectTimer" to="." method="_on_effect_timer_timeout"]
