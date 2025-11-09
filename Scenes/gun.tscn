@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1ysn7xw0khfm"]
+
+[ext_resource type="Script" uid="uid://ye4l0ragmt05" path="res://gun.gd" id="1_oqrbh"]
+[ext_resource type="Texture2D" uid="uid://hy25juiu513x" path="res://Assets/Hunter-SpriteSheet/Rifle.png" id="2_t6ynv"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_oqrbh")
+
+[node name="RotationOffset" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="RotationOffset"]
+texture_filter = 1
+texture = ExtResource("2_t6ynv")
+
+[node name="Shadow" type="Sprite2D" parent="RotationOffset/Sprite2D"]
+modulate = Color(0, 0, 0, 0.215686)
+z_index = -1
+texture_filter = 1
+texture = ExtResource("2_t6ynv")
+
+[node name="ShootPosition" type="Marker2D" parent="RotationOffset/Sprite2D"]
+position = Vector2(13.07, 3.37)
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
