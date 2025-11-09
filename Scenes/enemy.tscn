@@ -227,7 +227,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 7.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -382,7 +382,8 @@ script = ExtResource("1_ghaa6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_dhkrs")
-animation = &"idle"
+animation = &"attack"
+frame_progress = 0.277468
 
 [node name="EnemyCollider" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 6)
