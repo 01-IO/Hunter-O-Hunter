@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cssmc762qdklp"]
+[gd_scene load_steps=21 format=3 uid="uid://cssmc762qdklp"]
 
 [ext_resource type="Script" uid="uid://c7b704fydursl" path="res://Scripts/player.gd" id="1_deo7t"]
 [ext_resource type="Texture2D" uid="uid://cm2csjbgmcpd5" path="res://Assets/Hunter-SpriteSheet/MC-Idle-SpriteSheet.png" id="1_kns4j"]
 [ext_resource type="Texture2D" uid="uid://dmo1ln4tlxy64" path="res://Assets/Hunter-SpriteSheet/MC-Running(No Arms)-SpriteSheet.png" id="3_4dcvi"]
+[ext_resource type="PackedScene" uid="uid://d1ysn7xw0khfm" path="res://Scenes/gun.tscn" id="4_7igf5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_deo7t"]
 atlas = ExtResource("1_kns4j")
@@ -118,15 +119,13 @@ fill_to = Vector2(0.5, 0)
 
 [node name="Hunter" type="CharacterBody2D"]
 scale = Vector2(0.8, 0.8)
-motion_mode = 1
 script = ExtResource("1_deo7t")
 metadata/_edit_horizontal_guides_ = [-222.0]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4dcvi")
-animation = &"run"
-frame_progress = 0.147285
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 4)
@@ -149,6 +148,9 @@ one_shot = true
 [node name="DonCooldown" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
+
+[node name="Gun" parent="." instance=ExtResource("4_7igf5")]
+position = Vector2(0, -0.8)
 
 [connection signal="timeout" from="NormalEchoCooldown" to="." method="_on_normal_echo_cooldown_timeout"]
 [connection signal="timeout" from="DonCooldown" to="." method="_on_don_cooldown_timeout"]
