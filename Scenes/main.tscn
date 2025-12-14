@@ -397,7 +397,7 @@ fill_to = Vector2(0.5, 0.5)
 script = ExtResource("1_jjvhh")
 
 [node name="Hunter" parent="." instance=ExtResource("1_bo1nx")]
-top_level = true
+z_index = 2
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = SubResource("NoiseTexture2D_21xkr")
@@ -454,7 +454,6 @@ one_shot = true
 
 [node name="Enemy" parent="." instance=ExtResource("5_kry3j")]
 position = Vector2(-154, -68)
-motion_mode = 1
 
 [connection signal="don_started" from="Hunter" to="UI" method="_on_hunter_don_started"]
 [connection signal="normal_echo_started" from="Hunter" to="UI" method="_on_hunter_normal_echo_started"]

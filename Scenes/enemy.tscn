@@ -281,7 +281,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q0iv8")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 10.0
 }, {
@@ -359,7 +359,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7xmqa")
 }],
-"loop": true,
+"loop": false,
 "name": &"take_damage",
 "speed": 8.0
 }]
@@ -382,8 +382,7 @@ script = ExtResource("1_ghaa6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_dhkrs")
-animation = &"attack"
-frame_progress = 0.277468
+animation = &"take_damage"
 
 [node name="EnemyCollider" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 6)

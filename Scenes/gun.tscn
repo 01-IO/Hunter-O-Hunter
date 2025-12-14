@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1ysn7xw0khfm"]
 
-[ext_resource type="Script" uid="uid://ye4l0ragmt05" path="res://gun.gd" id="1_oqrbh"]
+[ext_resource type="Script" uid="uid://ye4l0ragmt05" path="res://Scripts/gun.gd" id="1_oqrbh"]
 [ext_resource type="Texture2D" uid="uid://hy25juiu513x" path="res://Assets/Hunter-SpriteSheet/Rifle.png" id="2_t6ynv"]
 
 [node name="Gun" type="Node2D"]
@@ -24,3 +24,5 @@ position = Vector2(13.07, 3.37)
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

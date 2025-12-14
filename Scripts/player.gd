@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var normal_echo_cooldown: Timer = $NormalEchoCooldown
 @onready var don_cooldown: Timer = $DonCooldown
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var gun: Node2D = $Gun
 
 var is_charging: bool = false
 var charge_time: float = 0.0
@@ -68,7 +69,11 @@ func _unhandled_input(event):
 	# Can't use abilities while stunned
 	if is_stunned:
 		return
-
+	
+	if Input.is_action_just_pressed("shoot") and gun.can_shoot: #Maybe move this to unhandled input
+		gun.can_shoot = false
+		gun.shoot()
+		gun.shoot_timer.start()
 	# --- Normal Echo ---
 	if event.is_action_pressed("normal_echo") and (not is_charging) and can_use_normal_echo:
 		emit_normal_echo()
