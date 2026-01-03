@@ -90,18 +90,6 @@ func take_damage(damage: float):
 			state = HURT
 			animated_sprite.animation_finished.connect(_on_hurt_animation_finished)
 		animated_sprite.play("take_damage")
-		#state = HURT
-		#var connection 
-		#connection = animated_sprite.animation_finished.connect(func():
-			#
-			#if state == HURT: 
-				#if player:
-					#state = CHASE
-				#else:
-					#state = WANDER
-					#
-			#animated_sprite.animation_finished.disconnect(connection) 
-		#)
 
 func _on_hurt_animation_finished():
 	if animated_sprite.animation == "take_damage":
@@ -114,6 +102,7 @@ func _on_hurt_animation_finished():
 				state = WANDER
 
 func _on_wander_timer_timeout() -> void:
+	if not is_alive: return
 	if state == CHASE or state == ATTACK:
 		return  # Don't change state while chasing or attacking
 	# If stationary and hasn't detected player yet, stay IDLE
@@ -132,12 +121,14 @@ func _on_wander_timer_timeout() -> void:
 	wander_timer.wait_time = randf_range(2.0, 5.0)
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
+	if not is_alive: return
 	if body.name == "Hunter":
 		print("Hunter detectet!")
 		player = body
 		state = CHASE
 	
 func _on_detection_area_body_exited(body: Node2D) -> void:
+	if not is_alive: return
 	if body.name == "Hunter":
 		print("Hunter lost!")
 		player = null
@@ -150,28 +141,32 @@ func deal_attack_damage():
 			body.take_damage(attack_damage)
 
 func _on_enemry_attack_area_body_entered(body: Node2D) -> void:
+	if not is_alive: return
 	if body.name == "Hunter":
 		player_in_attack_range = true
 		state = ATTACK
 		damage_dealt_this_attack = false
 
 func _on_enemry_attack_area_body_exited(body: Node2D) -> void:
+	if not is_alive: return
 	if body.name == "Hunter":
 		player_in_attack_range = false
 		state = CHASE
 
 func _on_animated_sprite_2d_animation_finished() -> void:
+	if animated_sprite.animation == "death":
+		queue_free()
+		return
 	
+	if not is_alive or state == DEATH or state == HURT:
+		return
+	
+	# Normal state transitions for living enemies
 	if animated_sprite.animation == "attack":
-		print("Attack animation finished. Player in range: ", player_in_attack_range)
 		if player_in_attack_range:
 			state = ATTACK
 			damage_dealt_this_attack = false
 		elif player:
 			state = CHASE
-	
-	if state == DEATH or state == HURT:
-		if animated_sprite.animation == "death":
-			queue_free()
-		print("enemy dead")
-		return
+		else:
+			state = WANDER
