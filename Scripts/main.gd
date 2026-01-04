@@ -6,6 +6,8 @@ extends Node2D
 @onready var effect_timer = $EffectTimer
 @onready var background: Sprite2D = $Background
 
+var cursor = preload("res://Assets/Hunter-SpriteSheet/Crosshair.png")
+
 # --- Config for Double or Nothing ---
 const CHARGE_DURATION = 2.0
 const SUCCESS_START_TIME = 1.73 # Corresponds to Position X = 260
@@ -16,6 +18,8 @@ const NORMAL_COLOR = Color("333333")
 const STUN_COLOR = Color("000000")
 
 func _ready():
+	Input.set_custom_mouse_cursor(cursor, Input.CURSOR_ARROW, Vector2(16,16))
+	
 	full_map_light.enabled = false
 	# Connect signals from the player to the UI
 	player.charge_started.connect(ui.start_charging)
