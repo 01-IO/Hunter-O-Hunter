@@ -1,6 +1,7 @@
 extends Node2D
 @onready var player = $Hunter
 @onready var ui = $UI
+@onready var gun = $Hunter/Gun
 @onready var canvas_modulate = $CanvasModulate
 @onready var full_map_light = $DirectionalLight2D
 @onready var effect_timer = $EffectTimer
@@ -24,6 +25,7 @@ func _ready():
 	# Connect signals from the player to the UI
 	player.charge_started.connect(ui.start_charging)
 	player.charge_updated.connect(ui.update_progress)
+	gun.ammo_changed.connect(ui._on_gun_ammo_changed)
 	
 	# Connect the player's charge release to this script's logic
 	player.charge_released.connect(_on_player_charge_released)
