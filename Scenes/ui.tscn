@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://du04fwnry83so"]
+[gd_scene load_steps=15 format=3 uid="uid://du04fwnry83so"]
 
 [ext_resource type="Script" uid="uid://de7bq8qjlsgjh" path="res://Scripts/ui.gd" id="1_jxero"]
 [ext_resource type="Texture2D" uid="uid://cp24qp0ddwqw6" path="res://Assets/RedHealthBar.png" id="2_2246s"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://kx2iyq0mivqs" path="res://Assets/DONecho/Layer 1.png" id="8_3r70p"]
 [ext_resource type="Texture2D" uid="uid://drcwa84yu4xv8" path="res://Assets/DONecho/Layer 2.png" id="9_8fs27"]
 [ext_resource type="Texture2D" uid="uid://b22t47qsemgbv" path="res://Assets/DONecho/Layer 3.png" id="10_whq80"]
+[ext_resource type="FontFile" uid="uid://dl6vkm8bhnf70" path="res://Assets/PixelFont.ttf" id="11_g0wmg"]
+[ext_resource type="Texture2D" uid="uid://lagvl5u2bpnp" path="res://Assets/gun_assets.png" id="12_4vbiv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wviqb"]
 
@@ -105,3 +107,40 @@ fill_mode = 4
 texture_under = ExtResource("8_3r70p")
 texture_over = ExtResource("9_8fs27")
 texture_progress = ExtResource("10_whq80")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -125.135
+offset_right = 74.865
+offset_bottom = 62.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="Label" type="Label" parent="MarginContainer2/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_g0wmg")
+theme_override_font_sizes/font_size = 32
+text = "X "
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer2/HBoxContainer"]
+texture_filter = 1
+position = Vector2(-27, 26)
+scale = Vector2(2, 2)
+texture = ExtResource("12_4vbiv")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Label2" type="Label" parent="MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_g0wmg")
+theme_override_font_sizes/font_size = 32
+text = "14"

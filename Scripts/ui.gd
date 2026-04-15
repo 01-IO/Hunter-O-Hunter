@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var health_bar: TextureProgressBar = $Health/HBoxContainer/HealthBar
 @onready var normal_echo_cooldown: TextureProgressBar = $EffectHUD/HBoxContainer/NormalEchoCooldown
 @onready var don_cooldown: TextureProgressBar = $EffectHUD/HBoxContainer/DonCooldown
+@onready var bullet_count_label: Label = $MarginContainer2/HBoxContainer/Label2
 
 var normal_echo_timer: float = 0.0
 var normal_echo_duration: float = 0.0
@@ -60,3 +61,6 @@ func _on_hunter_update_health(current_health: float, max_health: float) -> void:
 	health_bar.max_value = max_health
 	health_bar.value = current_health
 	print("health updated in UI!")
+
+func _on_gun_ammo_changed(current: int, _max: int) -> void:
+	bullet_count_label.text = str(current)

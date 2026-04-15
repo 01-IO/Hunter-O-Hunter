@@ -70,7 +70,7 @@ func _unhandled_input(event):
 	if is_stunned:
 		return
 	
-	if Input.is_action_just_pressed("shoot") and gun.can_shoot: #Maybe move this to unhandled input
+	if Input.is_action_just_pressed("shoot") and gun.can_fire(): #Maybe move this to unhandled input
 		gun.can_shoot = false
 		gun.shoot()
 		gun.shoot_timer.start()
