@@ -26,7 +26,7 @@ func _ready():
 	player.charge_started.connect(ui.start_charging)
 	player.charge_updated.connect(ui.update_progress)
 	gun.ammo_changed.connect(ui._on_gun_ammo_changed)
-	
+	#gun.ammo_changed.connect(enemy)
 	# Connect the player's charge release to this script's logic
 	player.charge_released.connect(_on_player_charge_released)
 	
