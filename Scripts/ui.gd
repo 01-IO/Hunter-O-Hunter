@@ -80,7 +80,7 @@ func _animate_ammo_gain() -> void:
 	
 	# Animate color to green and scale up slightly
 	tween.tween_property(bullet_count_label, "modulate", Color.GREEN, 0.1)
-	tween.parallel().tween_property(bullet_count_label, "scale", Vector2(1.4, 1.4), 0.1)
+	tween.parallel().tween_property(bullet_count_label, "scale", Vector2(2.5, 2.5), 0.3)
 	
 	# Snap back to original state with a slight bounce
 	tween.tween_property(bullet_count_label, "modulate", Color.WHITE, 0.2)

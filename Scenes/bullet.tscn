@@ -32,6 +32,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_oduel"]
 resource_name = "appear"
+length = 0.5
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -60,6 +61,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_6afsh"]
 resource_name = "remove"
+length = 0.5
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
