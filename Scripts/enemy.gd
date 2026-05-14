@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var attack_damage: float = 12.0
 @export var attack_frame: int = 6 # Attack animation frame wrt AnimatedSprite2D's attack animation
 @export var max_health: float = 30.0
+@export var ammo_reward: int = 3
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var wander_timer: Timer = $WanderTimer
@@ -83,6 +84,7 @@ func take_damage(damage: float):
 	
 	if curr_health <= 0:
 		is_alive = false
+		get_tree().call_group("player", "add_ammo", ammo_reward)
 		state = DEATH
 		animated_sprite.play("death")
 	else:

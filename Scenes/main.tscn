@@ -452,7 +452,6 @@ texture = SubResource("GradientTexture2D_jjvhh")
 [node name="UI" parent="." instance=ExtResource("2_8gbba")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
@@ -500,12 +499,15 @@ position = Vector2(356, 168)
 
 [node name="Enemy13" parent="." instance=ExtResource("5_kry3j")]
 position = Vector2(285, -60)
+is_stationary = true
 
 [node name="Enemy14" parent="." instance=ExtResource("5_kry3j")]
 position = Vector2(311, -35)
+is_stationary = true
 
 [node name="Enemy15" parent="." instance=ExtResource("5_kry3j")]
 position = Vector2(284, -15)
+is_stationary = true
 
 [connection signal="don_started" from="Hunter" to="UI" method="_on_hunter_don_started"]
 [connection signal="normal_echo_started" from="Hunter" to="UI" method="_on_hunter_normal_echo_started"]

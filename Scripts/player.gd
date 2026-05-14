@@ -38,6 +38,10 @@ var setHunterState = HunterState.IDLE
 
 func _ready() -> void:
 	print("curr health: ", current_health)
+
+func add_ammo(amount: int) -> void:
+	gun.add_ammo(amount)
+
 func _physics_process(delta: float) -> void:
 	# Don't move if stunned or charging
 	if is_stunned or is_charging:
