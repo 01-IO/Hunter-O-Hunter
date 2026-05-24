@@ -33,6 +33,12 @@ func _process(delta: float) -> void:
 func can_fire() -> bool:
 	return can_shoot and ammo > 0
 
+func add_ammo(amount: int) -> void:
+	ammo += amount
+	if ammo > max_ammo:
+		ammo = max_ammo
+	ammo_changed.emit(ammo, max_ammo)
+
 func shoot():
 	if ammo <= 0:
 		return

@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var normal_echo_cooldown: TextureProgressBar = $EffectHUD/HBoxContainer/NormalEchoCooldown
 @onready var don_cooldown: TextureProgressBar = $EffectHUD/HBoxContainer/DonCooldown
 @onready var bullet_count_label: Label = $MarginContainer2/HBoxContainer/Label2
+var last_ammo_count: int = -1
 
 var normal_echo_timer: float = 0.0
 var normal_echo_duration: float = 0.0
@@ -63,4 +64,24 @@ func _on_hunter_update_health(current_health: float, max_health: float) -> void:
 	print("health updated in UI!")
 
 func _on_gun_ammo_changed(current: int, _max: int) -> void:
+	# Trigger visual feedback only if ammo increased (refill)
+	# We check != -1 to prevent the animation playing the moment the game starts
+	if last_ammo_count != -1 and current > last_ammo_count:
+		_animate_ammo_gain()
+
 	bullet_count_label.text = str(current)
+	last_ammo_count = current
+
+func _animate_ammo_gain() -> void:
+	var tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	
+	# Ensure the pivot is centered for a better scaling effect
+	bullet_count_label.pivot_offset = bullet_count_label.size / 2
+	
+	# Animate color to green and scale up slightly
+	tween.tween_property(bullet_count_label, "modulate", Color.GREEN, 0.1)
+	tween.parallel().tween_property(bullet_count_label, "scale", Vector2(2.5, 2.5), 0.3)
+	
+	# Snap back to original state with a slight bounce
+	tween.tween_property(bullet_count_label, "modulate", Color.WHITE, 0.2)
+	tween.parallel().tween_property(bullet_count_label, "scale", Vector2.ONE, 0.2)
